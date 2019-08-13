@@ -6,37 +6,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SampleAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/users/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class HiController : Controller
     {
-        // GET api/values
+        
+        // GET /users/hi
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return "Say hello";
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        // GET /users/hi/name
+        [HttpGet("{name}")]
+        public ActionResult<string> Get(string name)
         {
-            return "value";
+            return name+" Say hello";
         }
 
-        // POST api/values
+        // POST /users/hi
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT /users/hi/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE /users/hi/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
