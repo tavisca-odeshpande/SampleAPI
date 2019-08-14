@@ -1,20 +1,24 @@
 pipeline {
     agent any
-
+    parameters {
+        string(name: 'REPO_PATH', defaultValue: 'https://github.com/tavisca-odeshpande/SampleAPI', description: 'repository path'),
+        string(name: 'SOLUTION_PATH', defaultValue: 'https://github.com/tavisca-odeshpande/SampleAPI/blob/master/SampleAPI.sln', description: 'solution path'),
+        string(name: 'TEST_PATH', defaultValue: 'ApiTests/ApiTests.csproj', description: 'test path')
+    }
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh'dotnet test ${TEST_PATH}'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'dotnet restore ${SOLUTION_PATH} -p:Configuration=release -v:n'
             }
         }
     }
