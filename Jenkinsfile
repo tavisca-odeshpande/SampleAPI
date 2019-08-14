@@ -12,8 +12,7 @@ pipeline {
     stages {
         stage('Build') {
             when {
-                // Only say hello if a "greeting" is requested
-                expression { params.REQUESTED_ACTION == 'BUILD' }
+                expression { params.REQUESTED_ACTION == 'BUILD' || params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
                 sh '''
@@ -24,7 +23,6 @@ pipeline {
         }
         stage('Test') {
             when {
-                // Only say hello if a "greeting" is requested
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
