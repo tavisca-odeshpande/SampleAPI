@@ -17,10 +17,5 @@ pipeline {
                 sh'dotnet test ${TEST_PATH}'
             }
         }
-        stage('Deploy') {
-            steps {
-                
-            }
-        }
     }
 }
