@@ -1,12 +1,20 @@
 pipeline {
     agent any
     parameters {
+        choice(
+            choices: ['BUILD' , 'TEST'],
+            description: '',
+            name: 'REQUESTED_ACTION')
         string(name: 'REPO_PATH', defaultValue: 'https://github.com/tavisca-odeshpande/SampleAPI', description: 'repository path')
         string(name: 'SOLUTION_PATH', defaultValue: 'SampleAPI.sln', description: 'solution path')
         string(name: 'TEST_PATH', defaultValue: 'ApiTests/ApiTests.csproj', description: 'test path')
     }
     stages {
         stage('Build') {
+            when {
+                // Only say hello if a "greeting" is requested
+                expression { params.REQUESTED_ACTION == 'BUILD' }
+            }
             steps {
                 sh '''
                     dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json 
@@ -15,6 +23,10 @@ pipeline {
             }
         }
         stage('Test') {
+            when {
+                // Only say hello if a "greeting" is requested
+                expression { params.REQUESTED_ACTION == 'TEST' }
+            }
             steps {
                 sh'dotnet test ${TEST_PATH}'
             }
