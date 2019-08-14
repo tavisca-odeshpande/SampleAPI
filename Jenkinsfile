@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json dotnet restore ${SOLUTION_PATH} -p:Configuration=release -v:n'
+                sh '''dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json 
+                dotnet build ${SOLUTION_PATH} -p:Configuration=release -v:n'''
             }
         }
         stage('Test') {
