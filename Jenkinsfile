@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'REPO_PATH', defaultValue: 'https://github.com/tavisca-odeshpande/SampleAPI', description: 'repository path')
-        string(name: 'SOLUTION_PATH', defaultValue: 'https://github.com/tavisca-odeshpande/SampleAPI/blob/master/SampleAPI.sln', description: 'solution path')
+        string(name: 'SOLUTION_PATH', defaultValue: 'SampleAPI.sln', description: 'solution path')
         string(name: 'TEST_PATH', defaultValue: 'ApiTests/ApiTests.csproj', description: 'test path')
     }
     stages {
