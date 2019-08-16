@@ -27,5 +27,20 @@ pipeline {
                 powershell(script: 'dotnet test ${TEST_PATH}')
             }
         }
+        stage('Publish') 
+        {
+            steps 
+            {
+                powershell(script: 'dotnet publish $env:projectToBePublished -c Release -o artifacts')
+            }
+        }
+        stage('Archive')
+        {
+            steps
+            {
+                powershell(script: 'compress-archive DemoWebApp/artifacts publish.zip -Update')
+                archiveArtifacts artifacts: 'publish.zip'    
+            }
+        }
     }
 }
