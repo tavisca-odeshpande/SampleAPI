@@ -9,6 +9,10 @@ pipeline {
         string(name: 'SOLUTION_PATH', defaultValue: 'SampleAPI.sln', description: 'solution path')
         string(name: 'TEST_PATH', defaultValue: 'ApiTests/ApiTests.csproj', description: 'test path')
     }
+    environment
+    {
+        projectToBePublished = 'ArchievedApp'
+    }
     stages {
         stage('Build') {
             when {
@@ -38,7 +42,7 @@ pipeline {
         {
             steps
             {
-                powershell(script: 'compress-archive DemoWebApp/artifacts publish.zip -Update')
+                powershell(script: 'compress-archive ArchievedApp/artifacts publish.zip -Update')
                 archiveArtifacts artifacts: 'publish.zip'    
             }
         }
